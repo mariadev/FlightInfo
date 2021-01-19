@@ -8,7 +8,5 @@
 import UIKit
 
 let padding: CGFloat = 25
-let summaryPadding: CGFloat = 50
-let sectionSummaryHeight: CGFloat = 100
 let sectionHeight: CGFloat = 60
 

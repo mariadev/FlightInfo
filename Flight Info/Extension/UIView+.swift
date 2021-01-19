@@ -105,13 +105,13 @@ extension UIView {
             leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
             trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
             bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
- 
+            
         case .center:
             centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
             
         case .toBottomAndCenter:
-           bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
             centerXAnchor.constraint(equalTo:  view.centerXAnchor).isActive = true
             centerYAnchor.constraint(equalTo:  view.centerYAnchor).isActive = true
         }
@@ -121,9 +121,19 @@ extension UIView {
     @discardableResult
     public func stickToTop( topView: UIView, leadingView: UIView, trailingView: UIView) -> UIView {
         translatesAutoresizingMaskIntoConstraints = false
-            topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
-            leadingAnchor.constraint(equalTo:  leadingView.leadingAnchor).isActive = true
-            trailingAnchor.constraint(equalTo: trailingView.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: topView.bottomAnchor).isActive = true
+        leadingAnchor.constraint(equalTo:  leadingView.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: trailingView.trailingAnchor).isActive = true
+        
+        return self
+    }
+    
+    @discardableResult
+    public func centerYWithConstant(view:UIView, constant: CGFloat = 0) -> UIView {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         return self
     }
@@ -138,14 +148,6 @@ extension UIView {
         return self
     }
     
-    @discardableResult
-    public func center(view: UIView) -> UIView {
-        translatesAutoresizingMaskIntoConstraints = false
-    centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        return self
-    }
     
     @discardableResult
     public func toBottomAndCenter(bottomView: UIView,view: UIView) -> UIView {
@@ -153,7 +155,7 @@ extension UIView {
         topAnchor.constraint(equalTo: bottomView.bottomAnchor).isActive = true
         centerXAnchor.constraint(equalTo:  view.centerXAnchor).isActive = true
         centerYAnchor.constraint(equalTo:  view.centerYAnchor).isActive = true
-    
+        
         
         return self
     }

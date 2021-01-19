@@ -19,9 +19,8 @@ public final class FlightsView: UIView {
     
     let background =  UIImageView(frame: UIScreen.main.bounds)
     
-    let generalView = UIView()
-    
     let flightSummaryView = UIView()
+    let flightSummaryViewInterior = UIView()
     let summaryIcon =  UIImageView()
     let summary = UILabel()
     
@@ -68,7 +67,7 @@ public final class FlightsView: UIView {
     }
     
     private func addViewFixHeight() {
-        flightSummaryView.setHeight(sectionSummaryHeight)
+        flightSummaryView.setHeight(sectionHeight)
         flightInfoTopView.setHeight(sectionHeight)
         flightInfoBottomView.setHeight(sectionHeight)
         bannerView.setHeight(sectionHeight)
@@ -76,48 +75,47 @@ public final class FlightsView: UIView {
  
     
     private func layout() {
-        self.addSubview(generalView)
-        
-        generalView.VStack(flightSummaryView, flightDetailView, bannerView)
-        generalView.edgeTo(self)
-        
+  
+        self.VStack(flightSummaryView, flightDetailView, bannerView)
+
         flightSummaryView.positionRelativeToView(self)
-        flightSummaryView.HStack(summaryIcon,
-                                 summary,
-                                 center: true)
-            .padding([.horizontalMargins], amount: padding*2)
-//            .height(sectionSummaryHeight)
-        
-        
+        flightSummaryView.addSubview(flightSummaryViewInterior)
+        flightSummaryViewInterior.positionRelativeToView(flightSummaryView, position: .center)
+        flightSummaryViewInterior.HStack(summaryIcon,
+                                         summary,
+                                         spacing: 16
+                                         )
+                              
         flightDetailView.stickToTop(topView: flightSummaryView, leadingView: self, trailingView: self)
-        
         flightDetailView.VStack( flightInfoTopView.HStack(flightTextLabel,
                                                           gateTextLabel,
                                                           distribution: .fillEqually),
-//                                    .height(sectionHeight),
                                  
                                  flightInfoBottomView.HStack(flightNumberLabel,
                                                              gateNumberLabel,
                                                              distribution: .fillEqually)
                                  .padding([.verticalMargins], amount: padding),
-//                                    .height(sectionHeight),
                                  
                                  planeView.HStack(originLabel,
                                                   plane,
                                                   destinationLabel,
                                                   alignment: .bottom,
-                                                  distribution: .fillProportionally),
+                                                  distribution: .fillProportionally)
+                                 .padding([.bottom], amount: padding),
                                  
-         distribution: .fill)
-        .padding([.allMargins], amount: padding)
-
-//        bannerView.setHeight(sectionHeight)
+                distribution: .fill)
+                .padding([.allMargins], amount: padding)
+        
         bannerView.addSubview(statusLabel)
         bannerView.addSubview(statusBanner)
         bannerView.positionRelativeToView(self, position: .stickToBottom)
-        statusLabel.positionRelativeToView(bannerView, position: .toBottomAndCenter)
+//        statusLabel.positionRelativeToView(bannerView, position: .stickToBottom)
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusLabel.centerYWithConstant(view: bannerView, constant: -5)
         statusBanner.positionRelativeToView(bannerView, position: .toBottomAndCenter)
         bannerView.bringSubviewToFront(statusLabel)
+
+
     }
     
     private func style() {
@@ -149,74 +147,34 @@ public final class FlightsView: UIView {
         }
         
         [flightTextLabel,
-         gateTextLabel
+         gateTextLabel,
+         originLabel,
+          destinationLabel
         ].forEach {
-            $0.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title2)
+            $0.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title2).bold()
+        }
+        
+        [originLabel,
+          destinationLabel
+        ].forEach {
+            $0.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1).bold()
+        }
+        
+        [flightTextLabel,
+         gateTextLabel,
+        ].forEach {
             $0.textColor = UIColor.white
         }
         
-        originLabel.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title2)
-        destinationLabel.textColor = UIColor.white
-        statusLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        [ originLabel,
+          destinationLabel
+        ].forEach {
+            $0.textColor = Colors.cream
+        }
+        statusLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
         statusLabel.textColor = UIColor.systemRed
+        statusLabel.textAlignment = .center
         
     }
-    private func delay(seconds: TimeInterval, execute: @escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: execute)
-    }
     
-}
-
-extension FlightsView {
-    
-    func fade(to image: UIImage, showEffects: Bool) {
-        //         Create & set up temp view
-        let tempView = UIImageView(frame: background.frame)
-        tempView.image = image
-        tempView.alpha = 0
-        tempView.center.y += 20
-        tempView.bounds.size.width = background.bounds.width * 1.3
-        background.superview!.insertSubview(tempView, aboveSubview: background)
-        UIView.animate(
-            withDuration: 0.5,
-            animations: {
-                // Fade temp view in
-                tempView.alpha = 1
-                tempView.center.y -= 20
-                tempView.bounds.size = self.background.bounds.size
-            },
-            completion: { _ in
-                // Update background view & remove temp view
-                self.background.image = image
-                tempView.removeFromSuperview()
-            }
-        )
-    }
-    
-    func changeFlight(to flight: Flight, animated: Bool = false) {
-        // populate the UI with the next flight's data
-        originLabel.text = flight.origin
-        destinationLabel.text = flight.destination
-        flightNumberLabel.text = flight.number
-        gateNumberLabel.text = flight.gateNumber
-        statusLabel.text = flight.status
-        summary.text = flight.summary
-        
-        if animated {
-            fade(
-                to: UIImage(named: flight.weatherImageName)!,
-                showEffects: flight.showWeatherEffects
-            )
-        } else {
-            background.image = UIImage(named: flight.weatherImageName)
-        }
-        //         schedule next flight
-        delay(seconds: 3) {
-            self.changeFlight(
-                to: flight.isTakingOff ? .parisToRome : .londonToParis,
-                animated: true
-            )
-        }
-        
-    }
 }

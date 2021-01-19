@@ -19,6 +19,7 @@
 		4C39AC4A25AA35F90081C231 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C39AC4925AA35F90081C231 /* Colors.swift */; };
 		4C39AC4E25AA363B0081C231 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C39AC4D25AA363B0081C231 /* UIColor+Hex.swift */; };
 		4C39AC5125AA36DC0081C231 /* FlightSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C39AC5025AA36DC0081C231 /* FlightSummaryView.swift */; };
+		4C4B0B6A25B6236F00AE4B6D /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4B0B6925B6236F00AE4B6D /* UIFont+.swift */; };
 		4C6E785125ACCDF40033B9A5 /* FlightInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E785025ACCDF40033B9A5 /* FlightInfoView.swift */; };
 		4C6E785425ACD4400033B9A5 /* PlaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E785325ACD4400033B9A5 /* PlaneView.swift */; };
 		4C6E785825ACD6870033B9A5 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6E785725ACD6870033B9A5 /* BannerView.swift */; };
@@ -42,6 +43,7 @@
 		4C39AC4925AA35F90081C231 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4C39AC4D25AA363B0081C231 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		4C39AC5025AA36DC0081C231 /* FlightSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSummaryView.swift; sourceTree = "<group>"; };
+		4C4B0B6925B6236F00AE4B6D /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		4C6E785025ACCDF40033B9A5 /* FlightInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightInfoView.swift; sourceTree = "<group>"; };
 		4C6E785325ACD4400033B9A5 /* PlaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneView.swift; sourceTree = "<group>"; };
 		4C6E785725ACD6870033B9A5 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				4C39AC4D25AA363B0081C231 /* UIColor+Hex.swift */,
 				4C6E785A25ACFA630033B9A5 /* StackView+.swift */,
 				4C6E785D25ACFAAC0033B9A5 /* UIView+.swift */,
+				4C4B0B6925B6236F00AE4B6D /* UIFont+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C8EAE3225AF83BF0008AB28 /* UIView+StackView.swift in Sources */,
+				4C4B0B6A25B6236F00AE4B6D /* UIFont+.swift in Sources */,
 				4C39AC2E25AA31230081C231 /* ViewController.swift in Sources */,
 				4C39AC4E25AA363B0081C231 /* UIColor+Hex.swift in Sources */,
 				4C39AC5125AA36DC0081C231 /* FlightSummaryView.swift in Sources */,
